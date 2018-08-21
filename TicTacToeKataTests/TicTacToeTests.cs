@@ -15,11 +15,11 @@ namespace TicTacToeKataTests
         public void board_size_is_3x3()
         {
             TicTacToe game = new TicTacToe();
-            int expectedWidth = 3;
-            int expectedHeight = 3;
+            int expectedWIDTH = 3;
+            int expectedHEIGHT = 3;
 
-            Assert.That(TicTacToe.Width, Is.EqualTo(expectedWidth));
-            Assert.That(TicTacToe.Height, Is.EqualTo(expectedHeight));
+            Assert.That(TicTacToe.WIDTH, Is.EqualTo(expectedWIDTH));
+            Assert.That(TicTacToe.HEIGHT, Is.EqualTo(expectedHEIGHT));
         }
 
         [Test]
@@ -84,21 +84,192 @@ namespace TicTacToeKataTests
         public void check_game_status_on_start()
         {
             TicTacToe game = new TicTacToe();
-            string expected = "Game continues.";
-            Assert.That(game.Status(), Is.EqualTo(expected));
+            int expected = 0;
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
         }
 
         [Test]
-        public void game_status_when_playerX_has_won()
+        public void game_status_code_after_2_rounds()
         {
             TicTacToe game = new TicTacToe();
-            string expected = "Game is over: Player X won!";
+            int expected = 0;
+            
+            //round 1
+            game.PlaceXAt(0, 0);
+            game.PlaceOAt(2, 1);
+            //round 2
+            game.PlaceXAt(2, 2);
+            game.PlaceOAt(1, 1);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_after_filling_all_fields()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 3;
+
+            //round 1
+            game.PlaceXAt(0, 0);
+            game.PlaceOAt(2, 1);
+            //round 2
+            game.PlaceXAt(2, 2);
+            game.PlaceOAt(1, 1);
+            //round 3
+            game.PlaceXAt(0, 1);
+            game.PlaceOAt(0, 2);
+            //round 4
+            game.PlaceXAt(1, 2);
+            game.PlaceOAt(1, 0);
+            //round 5
+            game.PlaceXAt(2, 0);
+            
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+
+        [Test]
+        public void game_status_code_when_playerX_won_row_1()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
 
             game.PlaceXAt(0, 0);
             game.PlaceXAt(1, 0);
             game.PlaceXAt(2, 0);
 
-            Assert.That(game.Status(), Is.EqualTo(expected));
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_row_2()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+
+            game.PlaceXAt(0, 1);
+            game.PlaceXAt(1, 1);
+            game.PlaceXAt(2, 1);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerO_won_row_2()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 2;
+
+            game.PlaceOAt(0, 1);
+            game.PlaceOAt(1, 1);
+            game.PlaceOAt(2, 1);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_row_3()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+            
+            game.PlaceXAt(0, 2);
+            game.PlaceXAt(1, 2);
+            game.PlaceXAt(2, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_col_1()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+
+            game.PlaceXAt(0, 0);
+            game.PlaceXAt(0, 1);
+            game.PlaceXAt(0, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_col_2()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+
+            game.PlaceXAt(1, 0);
+            game.PlaceXAt(1, 1);
+            game.PlaceXAt(1, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerO_won_col_2()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 2;
+
+            game.PlaceOAt(1, 0);
+            game.PlaceOAt(1, 1);
+            game.PlaceOAt(1, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_col_3()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+
+            game.PlaceXAt(2, 0);
+            game.PlaceXAt(2, 1);
+            game.PlaceXAt(2, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_diagonal_1()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+
+            game.PlaceXAt(0, 0);
+            game.PlaceXAt(1, 1);
+            game.PlaceXAt(2, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerO_won_diagonal_1()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 2;
+
+            game.PlaceOAt(0, 0);
+            game.PlaceOAt(1, 1);
+            game.PlaceOAt(2, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void game_status_code_when_playerX_won_diagonal_2()
+        {
+            TicTacToe game = new TicTacToe();
+            int expected = 1;
+
+            game.PlaceXAt(2, 0);
+            game.PlaceXAt(1, 1);
+            game.PlaceXAt(0, 2);
+
+            Assert.That(game.StatusCode(), Is.EqualTo(expected));
         }
 
 
